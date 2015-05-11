@@ -5,7 +5,7 @@ We unfortunately don't have time to support issues, fixes, or pull requests for 
 Prelaunchr
 ==========
 
-Originally open sourced over on our [engineering blog](http://engineering.harrys.com/2014/07/21/dont-launch-crickets.html), and discussed in great detail over at [Tim Ferriss' Blog](http://fourhourworkweek.com/2014/07/21/harrys-prelaunchr-email), Prelaunchr is a skeleton Rails application for quickly starting a viral prelaunch campaign for new companies or products. The campaign is conducive to social sharing and has prize levels based on the number of people each person refers. By default, we've included our original HTML/CSS for both the site and email to give you a better idea of how this looked when actually running.
+>Originally open sourced over on our [engineering blog](http://engineering.harrys.com/2014/07/21/dont-launch-crickets.html), and discussed in great detail over at [Tim Ferriss' Blog](http://fourhourworkweek.com/2014/07/21/harrys-prelaunchr-email), Prelaunchr is a skeleton Rails application for quickly starting a viral prelaunch campaign for new companies or products.
 
 ## Mechanics
 
@@ -47,37 +47,20 @@ bundle exec rake db:create
 bundle exec rake db:migrate
 ```
 
-Start local server and mail worker:
+Start local server:
 
 ```no-highlight
-foreman start
+rails server
 ```
 
-<<<<<<< HEAD
 View your website at the port default `http://localhost:5000/`.
-View sent mails at `http://localhost:1080/`.
 
 ### To create an admin account
 
 In Rails console, run this command. Be careful to not use the example admin user
 for security reasons. Password confirmation should match password.
 
-`AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'passwordconfirmaiton')`
-
-You can run this locally in a Rails console for development testing.
-
-If you are deployed to Heroku, you would run it there.
-=======
-View your website at the port default `http://localhost:7000/`.
-View sent mails at `http://localhost:1080/`.
->>>>>>> 0b07c7c... Add information on viewing emails in development
-
-### To create an admin account
-
-In Rails console, run this command. Be careful to not use the example admin user
-for security reasons. Password confirmation should match password.
-
-`AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'passwordconfirmaiton')`
+`AdminUser.create!(:phone => 'admin@example.com', :password => 'password', :password_confirmation => 'passwordconfirmaiton')`
 
 You can run this locally in a Rails console for development testing.
 
@@ -85,7 +68,7 @@ If you are deployed to Heroku, you would run it there.
 
 ## Teardown
 
-When your prelaunch campaign comes to an end we've included a helpful `rake` task to help you compile the list of winners into CSV's containing the email addresses and the amount of referrals the user had.
+When your prelaunch campaign comes to an end we've included a helpful `rake` task to help you compile the list of winners into CSV's containing the phone numbers and the amount of referrals the user had.
 
 * Run `bundle exec rake prelaunchr:create_winner_csvs` and the app will export CSV's in `/lib/assets` corresponding to each prize group.
 
