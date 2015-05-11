@@ -1,7 +1,7 @@
 require 'csv'
 
 namespace :prelaunchr do
-    desc "Will out put CSV's for each group of users you should email"
+    desc "Will output CSV's for each group of users"
     task :create_winner_csvs => :environment do
         stops = User::REFERRAL_STEPS.map{|stop| stop["count"]}
 

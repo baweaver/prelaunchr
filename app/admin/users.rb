@@ -2,7 +2,7 @@
 ActiveAdmin.register User do
   csv do
     column :id
-    column :email
+    column :phone_number
     column :referral_code
     column :referrer_id
     column :created_at

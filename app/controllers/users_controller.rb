@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
     def create
         # Get user to see if they have already signed up
-        @user = User.find_by_email(params[:user][:email]);
+        @user = User.find_by_phone_number(params[:user][:phone_number]);
             
         # If user doesnt exist, make them, and attach referrer
         if @user.nil?
@@ -35,13 +35,13 @@ class UsersController < ApplicationController
                 cur_ip.save
             end
 
-            @user = User.new(:email => params[:user][:email])
+            @user = User.new(:phone_number => params[:user][:phone_number])
 
             @referred_by = User.find_by_referral_code(cookies[:h_ref])
 
             puts '------------'
-            puts @referred_by.email if @referred_by
-            puts params[:user][:email].inspect
+            puts @referred_by.phone_number if @referred_by
+            puts params[:user][:phone_number].inspect
             puts request.env['HTTP_X_FORWARDED_FOR'].inspect
             puts '------------'
 
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
         # Send them over refer action
         respond_to do |format|
             if !@user.nil?
-                cookies[:h_email] = { :value => @user.email }
+                cookies[:h_phone_number] = { :value => @user.phone_number }
                 format.html { redirect_to '/refer-a-friend' }
             else
                 format.html { redirect_to root_path, :alert => "Something went wrong!" }
@@ -64,12 +64,12 @@ class UsersController < ApplicationController
     end
 
     def refer
-        email = cookies[:h_email]
+        phone_number = cookies[:h_phone_number]
 
         @bodyId = 'refer'
         @is_mobile = mobile_device?
 
-        @user = User.find_by_email(email)
+        @user = User.find_by_phone_number(phone_number)
 
         respond_to do |format|
             if !@user.nil?
@@ -92,11 +92,11 @@ class UsersController < ApplicationController
 
     def skip_first_page
         if !Rails.application.config.ended
-            email = cookies[:h_email]
-            if email and !User.find_by_email(email).nil?
+            phone_number = cookies[:h_phone_number]
+            if phone_number and !User.find_by_phone_number(phone_number).nil?
                 redirect_to '/refer-a-friend'
             else
-                cookies.delete :h_email
+                cookies.delete :h_phone_number
             end
         end
     end
