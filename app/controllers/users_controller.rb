@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_filter :skip_first_page, :only => :new
+    # before_filter :skip_first_page, :only => :new
 
     def new
         @bodyId = 'home'
@@ -19,20 +19,22 @@ class UsersController < ApplicationController
         # If user doesnt exist, make them, and attach referrer
         if @user.nil?
 
-            cur_ip = IpAddress.find_by_address(request.env['HTTP_X_FORWARDED_FOR'])
+            if Rails.env.production?
+                cur_ip = IpAddress.find_by_address(request.env['HTTP_X_FORWARDED_FOR'])
 
-            if !cur_ip
-                cur_ip = IpAddress.create(
-                    :address => request.env['HTTP_X_FORWARDED_FOR'],
-                    :count => 0
-                )
-            end
+                if !cur_ip
+                    cur_ip = IpAddress.create(
+                        :address => request.env['HTTP_X_FORWARDED_FOR'],
+                        :count => 0
+                    )
+                end
 
-            if cur_ip.count > 2
-                return redirect_to root_path
-            else
-                cur_ip.count = cur_ip.count + 1
-                cur_ip.save
+                if cur_ip.count > 2
+                    return redirect_to root_path
+                else
+                    cur_ip.count = cur_ip.count + 1
+                    cur_ip.save
+                end
             end
 
             @user = User.new(:phone_number => params[:user][:phone_number])
@@ -90,15 +92,15 @@ class UsersController < ApplicationController
 
     private 
 
-    def skip_first_page
-        if !Rails.application.config.ended
-            phone_number = cookies[:h_phone_number]
-            if phone_number and !User.find_by_phone_number(phone_number).nil?
-                redirect_to '/refer-a-friend'
-            else
-                cookies.delete :h_phone_number
-            end
-        end
-    end
+    # def skip_first_page
+    #     if !Rails.application.config.ended
+    #         phone_number = cookies[:h_phone_number]
+    #         if phone_number and !User.find_by_phone_number(phone_number).nil?
+    #             redirect_to '/refer-a-friend'
+    #         else
+    #             cookies.delete :h_phone_number
+    #         end
+    #     end
+    # end
 
 end

@@ -1,16 +1,16 @@
-<div class="container">
+<div class="container new-container">
     <div class="header">
         <h1 class="logo">AutoLotto</h1>
         <h1 class="play">Play together Win together</h1>
     </div>
-    <div class="content">
+    <div class="content new-content">
         <div class="callout">
             <h1 class="hack">
                 Do you want to
                 #hackthelotto?
             </h1>
             <%= form_for @user, :url => { :action => "create" }, :html => { :class => "subscribe" } do |f| %>
-                <%= f.text_field :email, :placeholder => "Enter your phone number", :class => "phone" %>
+                <%= f.text_field :phone_number, :placeholder => "Enter your phone number", :class => "phone" %>
                 <input class="signup" type="submit" value="Sign Me Up!" />
             <% end %>
         </div>
