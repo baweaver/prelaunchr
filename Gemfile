@@ -9,11 +9,11 @@ gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'pg'
 gem 'rails', '4.2.0'
 gem 'unicorn'
-gem 'modernizr-rails', '2.7.1'
+gem 'modernizr-rails', '~> 2.7.1'
 
 group :assets do
-  gem 'sass-rails',   '~> 5.0.1'
-  gem 'uglifier',
+  gem 'sass-rails', '~> 5.0.1'
+  gem 'uglifier'
 end
 
 group :development do

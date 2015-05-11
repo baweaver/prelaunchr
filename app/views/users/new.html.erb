@@ -1,8 +1,21 @@
-<div class="form-wrap clearfix <%= "ended" if Rails.application.config.ended %>">
-    <div class="key"></div>
-    <p class="byline brandon">Be the first to know</p>
-    <%= form_for @user, :url => { :action => "create" } do |f| %>
-        <%= f.text_field :email, :placeholder => "Enter Email", :class => "email brandon" %>
-        <input class="submit brandon" name="commit" type="submit" value="Step Inside" />
-    <% end %>
+<div class="container">
+    <div class="header">
+        <h1 class="logo">AutoLotto</h1>
+        <h1 class="play">Play together Win together</h1>
+    </div>
+    <div class="content">
+        <div class="callout">
+            <h1 class="hack">
+                Do you want to
+                #hackthelotto?
+            </h1>
+            <%= form_for @user, :url => { :action => "create" }, :html => { :class => "subscribe" } do |f| %>
+                <%= f.text_field :email, :placeholder => "Enter your phone number", :class => "phone" %>
+                <input class="signup" type="submit" value="Sign Me Up!" />
+            <% end %>
+        </div>
+        <div class="video">
+            <iframe src="//www.youtube.com/embed/eAHGn_PKbJA?controls=0&amp;showinfo=0&amp;rel=0" width="480" height="270" allowfullscreen="" frameborder="0" class="yt-demo"></iframe>
+        </div>
+    </div>
 </div>
